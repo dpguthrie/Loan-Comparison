@@ -16,8 +16,8 @@ Given predicted rate increases over the next 10 years, find appropriate loan pri
 
 ## Demo
 
-[Loan Comparison] (https://loan-comparison.herokuapp.com)
+[Loan Comparison](https://loan-comparison.herokuapp.com)
 
 ## Acknowledgements
 
-[Chris Moffitt] (https://github.com/chris1610)
+[Chris Moffitt](https://github.com/chris1610)
