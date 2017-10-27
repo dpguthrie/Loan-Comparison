@@ -1,0 +1,96 @@
+<!-- base.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>{% block title %}{% endblock %}</title>
+    <!-- Bootstrap core CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Custom scripts for this template -->
+  </head>
+  <body>
+    <div>
+      <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+
+          <!-- Navbar Header [collects both toggle button and navbar brand] -->
+          <div class="navbar-header">
+            <!-- Toggle Button [handles opening navbar menu on mobile screens]-->
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#exampleNavComponents" aria-expanded "false">
+                            <i class="glyphicon glyphicon-align-center"></i>
+                        </button>
+
+            <!-- Navbar Brand -->
+            <a href="/" class="navbar-brand">
+                            DataHub
+                        </a>
+          </div>
+
+
+          <!-- Navbar Collapse [collect navbar components such as navbar links and forms ] -->
+          <div class="collapse navbar-collapse" id="exampleNavComponents">
+
+            <!-- Navbar Links -->
+            <ul class="nav navbar-nav navbar-right">
+              <!--<li><a href="/" class="nav-link">Loan Comp</a></li>-->
+              <!--<li><a href="#">Page 2</a></li>
+              <li><a href="#">Page 3</a></li>-->
+            </ul>
+
+          </div>
+        </div>
+
+      </nav>
+
+      {% block body %}
+      {% endblock %}
+
+      <footer class="footer-bs">
+        <div class="container">
+          <button class="back-to-top" type="button"></button>
+              <div class="row">
+                <div class="col-md-4 footer-brand animated fadeInLeft">
+
+                  </div>
+                <div class="col-md-2 footer-nav animated fadeInUp">
+                    <h4>Menu —</h4>
+                    <div class="col-md-12">
+                          <ul class="list">
+                              <li><a href="#">About Us</a></li>
+                              <li><a href="#">Contacts</a></li>
+                              <li><a href="#">Terms & Condition</a></li>
+                              <li><a href="#">Privacy Policy</a></li>
+                          </ul>
+                      </div>
+                  </div>
+                <div class="col-md-3 footer-social animated fadeInDown">
+                    <h4>Follow Us</h4>
+
+                  </div>
+                <div class="col-md-3 footer-ns animated fadeInRight">
+                    <h4>Signup</h4>
+                      <p>Sign up for cutting-edge analytics</p>
+                      <p>
+                          <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Enter email...">
+                            <span class="input-group-btn">
+                              <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-envelope"></span></button>
+                            </span>
+                          </div><!-- /input-group -->
+                       </p>
+                  </div>
+              </div>
+            </div>
+          </footer>
+    </div> <!-- /container -->
+    <script type="text/javascript" src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src= "{{ url_for('static',filename='js/script.js') }}"></script>
+  </body>
+</html>
+

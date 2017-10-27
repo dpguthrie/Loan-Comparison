@@ -1,0 +1,243 @@
+<!-- index.html -->
+
+{% extends "base.html" %}
+{% import "wtf.html" as wtf %}
+{% block title %}Loan Comparison{% endblock %}
+{% block body %}
+
+	{% if graphJSON %}
+
+    <div class="container" style="padding-top: 130px; padding-bottom: 100px; background-color: #fff;">
+
+		<!-- Rates -->
+        <div id="rates" class="row sections">
+        	{% for key, value in IRdict.items() %}
+                <div class="col-xs-4 text-center">
+                    <div class="panel panel-pricing {{ value[1] }}">
+                        <div class="panel-heading">
+                            <h3>{{ key }}</h3>
+                        </div>
+                        <div class="panel-body text-center">
+                            <p><strong>{{ '{0:0.2f}'.format(value[0]) }}%</strong></p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+		<!-- /Rates -->
+		<hr>
+
+		<!-- INTEREST RATES -->
+		<div class="sections">
+			<div class="row">
+		  	  <div class="col-xs-12 col-lg-4">
+		        <div> 
+					<h2 class="section-header">Interest Rates</h2>
+		        </div>
+		      </div>
+		      <div class="col-xs-12 col-lg-8 pull-right">
+		        <div > 
+					{% for id in ids if id == "graph-0" %}
+						<div id="{{ id }}" class="responsive-plot"></div>
+					{% endfor %}
+		        </div>
+		      </div>
+		      <div class="col-xs-12 col-lg-4">
+		        <div> 
+					<p class="section-body">{{ desc_list[0] }}</p>	
+		        </div>
+		      </div>
+
+			</div>
+		</div>
+
+		<!-- /INTEREST RATES -->
+
+		<!-- INTEREST INCOME -->
+		<div class="sections">
+			<div class="row">
+		  	  <div class="col-xs-12 col-lg-4 pull-right">
+		        <div> 
+					<h2 class="section-header">Interest Income</h2>
+		        </div>
+		      </div>
+		      <div class="col-xs-12 col-lg-8">
+		        <div > 
+					{% for id in ids if id == "graph-1" %}
+						<div id="{{ id }}" class="responsive-plot"></div>
+					{% endfor %}
+		        </div>
+		      </div>
+		      <div class="col-xs-12 col-lg-4 pull-right">
+		        <div> 
+					<p class="section-body">{{ desc_list[1] }}</p>	
+		        </div>
+		      </div>
+
+			</div>
+		</div>
+
+		<!-- /INTEREST INCOME -->
+
+		<!-- MONTHLY PAYMENT -->
+		<div class="sections">
+			<div class="row">
+		  	  <div class="col-xs-12 col-lg-4">
+		        <div> 
+					<h2 class="section-header">Monthly Payment</h2>
+		        </div>
+		      </div>
+		      <div class="col-xs-12 col-lg-8 pull-right">
+		        <div > 
+					{% for id in ids if id == "graph-2" %}
+						<div id="{{ id }}" class="responsive-plot"></div>
+					{% endfor %}
+		        </div>
+		      </div>
+		      <div class="col-xs-12 col-lg-4">
+		        <div> 
+					<p class="section-body">{{ desc_list[2] }}</p>	
+		        </div>
+		      </div>
+
+			</div>
+		</div>
+
+		<!-- /MONTHLY PAYMENT -->
+
+		<!-- REMAINING PRINCIPAL -->
+		<div class="sections">
+			<div class="row">
+		  	  <div class="col-xs-12 col-lg-4 pull-right">
+		        <div> 
+					<h2 class="section-header">Remaining Principal</h2>
+		        </div>
+		      </div>
+		      <div class="col-xs-12 col-lg-8">
+		        <div > 
+					{% for id in ids if id == "graph-3" %}
+						<div id="{{ id }}" class="responsive-plot"></div>
+					{% endfor %}
+		        </div>
+		      </div>
+		      <div class="col-xs-12 col-lg-4 pull-right">
+		        <div> 
+					<p class="section-body">{{ desc_list[3] }}</p>	
+		        </div>
+		      </div>
+
+			</div>
+		</div>
+	</div>
+
+		<!-- /REMAINING PRINCIPAL -->
+
+		<!-- ASSUMPTION 
+		<section id="assumptions" class="alt-color section-padding">
+			<h1 class="text-center">ASSUMPTIONS</h1>
+			<div class="container container-sections">
+				<hr>
+				<div class="row">
+					<div class="col-md-6 text-center">
+						<ul class="assumptions-list list-group lead" style="padding-top: 25px;">
+							<li class="list-group-item list-group-item-info">Loan Assumptions</li>
+							<li class="list-group-item list-color">Amount:  {{ '{0:,.0f}'.format(request.form['Amount']|float) }}</li>
+							<li class="list-group-item list-color">Interest Rate:  {{ request.form['Rate'] }}%</li>
+							<li class="list-group-item list-color">Term (Months):  {{ request.form['Term'] }}</li>
+							<li class="list-group-item list-color">Amortization (Months): {{ request.form['Amort'] }}</li>
+							<li class="list-group-item list-color">Reset Period (Month): {{ request.form['Reset'] }}</li>
+						</ul>
+					</div>
+					<div class="col-md-6 text-center">
+						{% for id in ids if id == "graph-1" %}
+							<div id="{{ id }}" class="responsive-plot"></div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</section>
+
+
+
+
+
+	    {% for id in ids if id not in ("graph-0","graph-1") %}
+	    	{% if id == "graph-3" %}
+				<section id="plotly-{{ id }}" class="section-padding">
+				    <div class="container container-sections">
+				    	<div class="row">
+				    		<div class="col-md-12 text-center">
+		        				<div id="{{id}}"></div>	
+				    		</div>
+				    	</div>
+		        	</div>
+		        </section>
+	    	{% else %}
+				<section id="plotly-{{ id }}" class="alt-color section-padding">
+				    <div class="container container-sections">
+				    	<div class="row">
+				    		<div class="col-md-12 text-center">
+		        				<div id="{{id}}"></div>	
+				    		</div>
+				    	</div>
+		        	</div>
+		        </section>
+	    	{% endif %}
+	    {% endfor %}
+	</div>
+	-->
+
+	<!-- D3.js -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+	<!-- jQuery -->
+	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+	<!-- Plotly.js -->
+	<script src="https://d14fo0winaifog.cloudfront.net/plotly-basic.js"></script>
+
+	<script type="text/javascript">
+	    var graphs = {{graphJSON | safe}};
+	    var ids = {{ids | safe}};
+
+	    for(var i in graphs) {
+	        Plotly.plot(ids[i], // the ID of the div, created above
+	                    graphs[i].data,
+	                    graphs[i].layout || {},
+	                    {showLink: false});
+	    }
+	</script>
+
+
+
+	{% else %}
+
+      <div class="container-fluid" style="padding-top: 150px; padding-bottom: 100px; background-color: #f6f9fc;">
+      	<div class="container">
+		<section id="input-form">
+		    <div class="container">
+		    	<div class="row vertical-center">
+		    		<div class="col-md-6">
+		    			<h1 class="large-title">Loan Comparison</h1><br>
+		    			<h2 class="medium-title">Interest Rate Pricing for Various Loan Types</h2> 
+		    		</div>
+		    	    <div id="loan-assumptions" class="col-md-6">
+	                    <form role="form" action="/" method="post" id="loan-form" autocomplete="off">
+							{{ wtf.form_field(form.Amount, class="form-control", placeholder="1,000,000") }}
+							{{ wtf.form_field(form.Term, class="form-control", placeholder="60") }}
+							{{ wtf.form_field(form.Amort, class="form-control", placeholder="360") }}
+							{{ wtf.form_field(form.Rate, class="form-control", placeholder="4.75") }}
+							{{ wtf.form_field(form.Reset, class="form-control", placeholder="36") }}
+	                        <input type="submit" id="btn-login" class="btn btn-custom btn-lg btn-block" value="Submit">
+	                    </form>
+		    		</div> <!-- /.col-xs-6 -->
+		    	</div> <!-- /.row -->
+		    </div> <!-- /.container -->
+		</section>
+		</div>
+	  </div>
+
+	{% endif %}
+
+{% endblock %}
+
+
+
